@@ -1,5 +1,5 @@
 name: Second Workflow
-'on': workflow_dispatch
+on: workflow_dispatch
 jobs:
   generate-number:
     runs-on: ubuntu-latest
