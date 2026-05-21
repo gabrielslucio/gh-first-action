@@ -1,13 +1,11 @@
 name: Second Workflow
-
-on: workflow_dispatch
-
+'on': workflow_dispatch
 jobs:
   generate-number:
     runs-on: ubuntu-latest
     outputs:
-      number: ${{steps.gen.outputs.number}}
-    steps: 
+      number: '${{steps.gen.outputs.number}}'
+    steps:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -35,5 +33,3 @@ jobs:
             else:
               print('Numero impar!')
             "
-      
-      
