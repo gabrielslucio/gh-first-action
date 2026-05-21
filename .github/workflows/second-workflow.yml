@@ -24,4 +24,4 @@ jobs:
         with:
           python-version: '3.10'
       - name: Print result
-        run: "python -c \"num = int('${{ needs.generate-number.outputs.number }}') print(f'Random number: {num}') if num % 2 == 0: print('Numero par!')\telse: print('Numero impar!')\"\n"
+       run: "python -c \"num=int('${{ needs.generate-number.outputs.number }}'); print(f'Random number: {num}'); print('Numero par!' if num % 2 == 0 else 'Numero impar!')\""
