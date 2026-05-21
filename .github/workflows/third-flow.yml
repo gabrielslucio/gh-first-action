@@ -1,0 +1,27 @@
+name: Second Workflow
+'on': workflow_dispatch
+jobs:
+  generate-number:
+    runs-on: ubuntu-latest
+    outputs:
+      number: '${{ steps.gen.outputs.number }}'
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Generate random number
+        id: gen
+        run: >
+          echo "number=$(python -c 'import random;
+          print(random.randint(1,10))')" >> $GITHUB_OUTPUT
+  return-message:
+    runs-on: ubuntu-latest
+    needs: generate-number
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Print result
+       run: "python -c \"num=int('${{ needs.generate-number.outputs.number }}'); print(f'Random number: {num}'); print('Numero par!' if num % 2 == 0 else 'Numero impar!')\""
