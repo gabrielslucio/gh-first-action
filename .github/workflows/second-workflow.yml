@@ -4,7 +4,7 @@ jobs:
   generate-number:
     runs-on: ubuntu-latest
     outputs:
-      number: '${{steps.gen.outputs.number}}'
+      number: '${{ steps.gen.outputs.number }}'
     steps:
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -12,7 +12,7 @@ jobs:
           python-version: '3.10'
       - name: Generate random number
         id: gen
-        run: |
+        run: >
           echo "number=$(python -c 'import random;
           print(random.randint(1,10))')" >> $GITHUB_OUTPUT
   return-message:
@@ -24,12 +24,4 @@ jobs:
         with:
           python-version: '3.10'
       - name: Print result
-        run: |
-          python -c "
-            num = int('${{needs.generate-number.outputs.number}}')
-            print(f'Random number: {num}')
-            if num % 2 == 0:
-              print('Numero par!')
-            else:
-              print('Numero impar!')
-            "
+        run: "python -c \"num = int('${{ needs.generate-number.outputs.number }}') print(f'Random number: {num}') if num % 2 == 0: print('Numero par!')\telse: print('Numero impar!')\"\n"
